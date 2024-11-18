@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>pokemon-list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Pokemon-list</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form (ngSubmit)="getPokemon()" [formGroup]="pokemon" class="login-form">
+    <ion-item fill="solid" class="ion-adjust-form">
+      <ion-input type="text" placeholder="Ingrese el nombre del pokemon" formControlName="name"></ion-input>
+      <ion-note slot="error" *ngIf="(name?.dirty || name?.touched) && name?.errors">
+        <span *ngIf="name?.errors?.['required']">El nombre es requerido.</span>
+      </ion-note>
+    </ion-item>
+    <ion-button type="submit" [disabled]="!pokemon.valid" class="login-button">Buscar Pokemon</ion-button>
+  </form>
+  
+  <ion-card *ngIf="pokemonName && pokemonName !== 'Pokemon no encontrado'" style="text-align: center;">
+    <img alt="Silhouette of mountains" src={{pokemonImage}} style="width: 100%; height: auto;" />
+    <ion-card-header>
+      <ion-card-title>{{pokemonName}}</ion-card-title>
+      <ion-card-subtitle>{{pokemonId}}</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      Here's a small text description for the card content. Nothing more, nothing less.
+    </ion-card-content>
+  </ion-card>
+  <span *ngIf="pokemonName === 'Pokemon no encontrado' ">Pokemon no encontrado</span>
+</ion-content>
